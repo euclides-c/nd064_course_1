@@ -2,12 +2,6 @@ import sqlite3
 
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
-import logging
-from logging.config import dictConfig
-
-
-
-
 
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
@@ -22,7 +16,6 @@ def get_post(post_id):
     post = connection.execute('SELECT * FROM posts WHERE id = ?',
                         (post_id,)).fetchone()
     connection.close()
-    app.logger.info('Status request successfull')
     return post
 
 # Define the Flask application
@@ -43,10 +36,9 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-        
-        return render_template('404.html'), 404
+      return render_template('404.html'), 404
     else:
-        return render_template('post.html', post=post)
+      return render_template('post.html', post=post)
 
 # Define the About Us page
 @app.route('/about')
@@ -68,52 +60,11 @@ def create():
                          (title, content))
             connection.commit()
             connection.close()
-            app.logger.info("Article ", "%s", "created!", title)
 
             return redirect(url_for('index'))
 
     return render_template('create.html')
 
-@app.route('/healthz')
-def healthz():
-    response = app.response_class(
-            response=json.dumps({"result":"OK - healthy"}),
-            status=200,
-            mimetype='application/json'
-    )
-
-    return response
-
-@app.route('/metrics')
-def metrics():
-    # Total amount of posts in the database
-    connection = get_db_connection()
-    posts = connection.execute('SELECT * FROM posts').fetchall()
-
-    # connection count 
-    response = app.response_class(
-            response=json.dumps({"db_connection_count": 1, "post_count": posts}),
-            status=200,
-            mimetype='application/json'
-    )
-    return response
-
 # start the application on port 3111
 if __name__ == "__main__":
-    dictConfig({
-    'version': 1,
-    'formatters': {'default': {
-        'format': '%(levelname)s %(name)s [%(asctime)s]:  %(message)s',
-    }},
-    'handlers': {'wsgi': {
-        'class': 'logging.StreamHandler',
-        'stream': 'ext://flask.logging.wsgi_errors_stream',
-        'formatter': 'default'
-    }},
-    'root': {
-        'level': 'INFO',
-        'handlers': ['wsgi']
-    }
-})
-
-app.run(host='0.0.0.0', port='3111')
+   app.run(host='0.0.0.0', port='3111')
