@@ -30,4 +30,4 @@ jobs:
         with:
           context: ./project/
           push: true
-          tags: euclides-c/techtrends:latest
+          tags: euclidesc/techtrends:latest
