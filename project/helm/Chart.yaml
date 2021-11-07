@@ -1,0 +1,9 @@
+apiVersion: v1
+name: techtrends
+description: Install techtrends application 
+keywords:
+- techtrends
+version: 1.0.0
+maintainers:
+- name: Euclides Chauque 
+  email: euclideschauque@gmail.com
