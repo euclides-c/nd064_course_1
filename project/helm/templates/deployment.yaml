@@ -30,7 +30,5 @@ spec:
         containerPort: {{.Values.containerPort}}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
-
-# check this 
 {{ toYaml .Values.livenessProbe | indent 12 }}
 {{ toYaml .Values.readinessProbe | indent 12 }}
