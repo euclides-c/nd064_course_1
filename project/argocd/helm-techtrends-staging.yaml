@@ -13,5 +13,5 @@ spec:
       valueFiles:
       - values-staging.yaml
     path: project/helm
-    repoURL: https://github.com/udacity/nd064_course_1
+    repoURL: https://github.com/euclides-c/nd064_course_1
     targetRevision: HEAD
