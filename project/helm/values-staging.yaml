@@ -11,8 +11,8 @@ image:
   repository: techtrends 
   tag: latest
   pullPolicy: IfNotPresent
-  ports:
-    containerPort: 3111
+  # ports:
+  #   containerPort: 3111
 
 replicaCount: 3
 
@@ -24,7 +24,7 @@ resources:
     cpu: 500m
     memory: 128Mi
 
-# containerPort: 3111
+containerPort: 3111
 
 livenessProbe:
   path: /healthz
