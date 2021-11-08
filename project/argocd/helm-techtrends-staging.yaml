@@ -12,6 +12,6 @@ spec:
     helm:
       valueFiles:
       - values-staging.yaml
-    path: project/argocd
+    path: project/helm/templates
     repoURL: https://github.com/euclides-c/nd064_course_1
     targetRevision: HEAD
