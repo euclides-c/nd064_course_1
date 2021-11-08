@@ -8,7 +8,7 @@ service:
   targetPort: 3111
 
 image:
-  repository: techtrends 
+  repository: euclides/techtrends 
   tag: latest
   pullPolicy: IfNotPresent
   # ports:
