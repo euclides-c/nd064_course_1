@@ -5,14 +5,14 @@ service:
   port: 7111
   type: ClusterIP
   protocol: TCP
-  # targetPort: 3111
+# targetPort: 3111
 
 image:
   repository: euclidesc/techtrends 
   tag: latest
   pullPolicy: IfNotPresent
-  # ports:
-  #   containerPort: 3111
+# ports:
+#   containerPort: 3111
 
 replicaCount: 3
 
@@ -29,11 +29,11 @@ containerPort: 3111
 livenessProbe:
   path: /healthz
   port: 3111
-  # port: containerPort
+# port: containerPort
 
 readinessProbe:
   path: /healthz
   port: 3111
-  # port: containerPort
+# port: containerPort
 
 
