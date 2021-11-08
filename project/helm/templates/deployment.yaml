@@ -30,8 +30,21 @@ spec:
         ports:
           containerPort: {{.Values.containerPort}}
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+          requests:
+            memory: {{.Values.resources.requests.memory}}
+            cpu: {{.Values.resources.requests.cpu}}
+          limits:
+            memory: {{.Values.resources.limits.memory}}
+            cpu: {{.Values.resources.limits.cpu}}
         livenessProbe:
-{{ toYaml .Values.livenessProbe | indent 10 }}
+          httpGet:
+            path: {{.Values.livenessProbe.path}}
+            port: {{.Values.livenessProbe.port}}
+          initialDelaySeconds: 5
+          periodSeconds: 10
         readinessProbe:
-{{ toYaml .Values.readinessProbe | indent 10 }}
+          httpGet:
+            path: {{.Values.readinessProbe.path}}
+            port: {{.Values.readinessProbe.port}}
+          initialDelaySeconds: 5
+          periodSeconds: 10
