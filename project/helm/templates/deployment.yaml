@@ -28,7 +28,7 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: techtrends
         ports:
-          containerPort: {{.Values.containerPort}}
+        - containerPort: {{.Values.containerPort}}
         resources:
           requests:
             memory: {{.Values.resources.requests.memory}}
