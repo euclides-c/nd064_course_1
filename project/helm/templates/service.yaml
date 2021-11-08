@@ -10,7 +10,7 @@ spec:
   ports:
   - port: {{ .Values.service.port }} 
     protocol: TCP
-    targetPort: {{.Values.service.targetPort | default .Values.service.port}}
+    targetPort: {{default .Values.service.port .Values.service.targetPort }}
   selector:
     app: techtrends
     tag: techtrends
