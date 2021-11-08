@@ -10,7 +10,11 @@ spec:
   ports:
   - port: {{ .Values.service.port }} 
     protocol: TCP
+    {{- if eq .Values.service.targetPort nill }}
     targetPort: {{ .Values.service.port }}
+    {{- else}}
+    targetPort: {{.Values.service.targetPort}}
+    {{- end}}
   selector:
     app: techtrends
     tag: techtrends

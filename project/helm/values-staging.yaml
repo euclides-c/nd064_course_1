@@ -5,7 +5,7 @@ service:
   port: 7111
   type: ClusterIP
   protocol: TCP
-  targetPort: 3111
+  # targetPort: 3111
 
 image:
   repository: euclidesc/techtrends 
