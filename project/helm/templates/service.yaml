@@ -10,7 +10,7 @@ spec:
   ports:
   - port: {{ .Values.service.port }} 
     protocol: TCP
-    {{- if eq .Values.service.targetPort nill }}
+    {{- if eq .Values.service.targetPort "" }}
     targetPort: {{ .Values.service.port }}
     {{- else}}
     targetPort: {{.Values.service.targetPort}}
