@@ -8,9 +8,9 @@ service:
   targetPort: 3111
 
 image:
-  repository: techtrends 
+  repository: euclidesc/techtrends 
   tag: latest
-  pullPolicy: always
+  pullPolicy: Always
 
 replicaCount: 5
 
