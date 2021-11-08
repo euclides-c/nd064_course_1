@@ -10,11 +10,6 @@ spec:
   ports:
   - port: {{ .Values.service.port }} 
     protocol: TCP
-    # {{- if  .Values.service.targetPort == 0 }}
-    # targetPort: {{ .Values.service.port }}
-    # {{- else}}
-    # targetPort: {{.Values.service.targetPort}}
-    # {{- end}}
     targetPort: {{.Values.service.targetPort | default .Values.service.port}}
   selector:
     app: techtrends
