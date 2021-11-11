@@ -2,7 +2,7 @@ namespace:
   name: staging
  
 service:
-  port: 7111
+  port: 5111
   type: ClusterIP
   protocol: TCP
   targetPort: 3111
@@ -12,8 +12,6 @@ image:
   repository: euclidesc/techtrends 
   tag: latest
   pullPolicy: IfNotPresent
-# ports:
-#   containerPort: 3111
 
 replicaCount: 3
 
@@ -30,11 +28,9 @@ containerPort: 3111
 livenessProbe:
   path: /healthz
   port: 3111
-# port: containerPort
 
 readinessProbe:
   path: /healthz
   port: 3111
-# port: containerPort
 
 

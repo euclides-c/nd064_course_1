@@ -1,8 +1,7 @@
 import sqlite3
 
-from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
+from flask import Flask, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
-import logging
 from logging.config import dictConfig
 
 
@@ -24,7 +23,6 @@ def get_post(post_id):
     post = connection.execute('SELECT * FROM posts WHERE id = ?',
                         (post_id,)).fetchone()
     connection.close()
-    # app.logger.info('Status request successfull')
     return post
 
 # Define the Flask application
@@ -80,8 +78,7 @@ def create():
 
 @app.route('/healthz')
 def healthz():
-    # check the connection object: try and catch loop, finally 
-
+    
     try:
         connection = get_db_connection()
         posts = connection.execute('SELECT * FROM posts').fetchone()
@@ -115,49 +112,41 @@ def metrics():
     )
     return response
 
-# start the application on port 3111
+
 if __name__ == "__main__":
+
+    # configure logging 
     dictConfig({
     'version': 1,
     'formatters': {'default': {
-        'format': '%(levelname)s %(name)s [%(asctime)s]:  %(message)s'
+        'format': '%(levelname)s %(name)s [%(asctime)s]:  %(message)s',
     }},
-    'handlers': {'wsgi': {
+    'handlers': {
+       'wsgi': {
         'class': 'logging.StreamHandler',
         'stream': 'ext://flask.logging.wsgi_errors_stream',
+        'level': 'INFO',
         'formatter': 'default'
     },
     'stdout_handler': {
         'class': 'logging.StreamHandler',
         'stream': 'ext://sys.stdout',
+        'level': 'INFO',
         'formatter': 'default'
+
     },
-        'stderr_handler': {
+    'stderr_handler': {
         'class': 'logging.StreamHandler',
         'stream': 'ext://sys.stderr',
+        'level': 'INFO',
         'formatter': 'default'
     }},
     'root': {
         'level': 'DEBUG',
-        'handlers': ['wsgi', 'stdout_handler', 'stderr_handler']
+        'handlers': ['wsgi']
     }
 })
 
-#     ## stream logs to app.log file
-
-#     loglevel = os.getenv("LOGLEVEL", "DEBUG").upper()
-#     loglevel = (
-#       getattr(logging, loglevel)
-#       if loglevel in ["CRITICAL", "DEBUG", "ERROR", "INFO", "WARNING",]
-#       else logging.DEBUG
-#   )
-
-#   # Set logger to handle STDOUT and STDERR
-#     stdout_handler = logging.StreamHandler(sys.stdout) # STDOUT handler
-#     stderr_handler = logging.StreamHandler(sys.stderr) # STDERR handler
-#     handlers = [stderr_handler, stdout_handler]
-
-#   # format output
-#     format_output = ('%(asctime)s - %(name)s - %(message)s') # formatting output here
-#     logging.basicConfig(format=format_output, level=loglevel, handlers=handlers)
+# start the application on port 3111
     app.run(host='0.0.0.0', port='3111')
+
